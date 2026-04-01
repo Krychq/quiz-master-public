@@ -8,8 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio",
-    "analyze": "cross-env ANALYZE=true next build"
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
