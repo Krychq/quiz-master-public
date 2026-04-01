@@ -54,7 +54,7 @@ export async function GET(request: Request) {
     const tier = getTierOG(pct);
 
     const baseUrl =
-      process.env.NEXT_PUBLIC_APP_URL || "https://quiz-master.netlify.app";
+      process.env.NEXT_PUBLIC_SITE_URL || "https://quiz-master.netlify.app";
     const shareUrl = `${baseUrl}/results/${id}`;
 
     const qrCodeDataUrl = await QRCode.toDataURL(shareUrl, {
