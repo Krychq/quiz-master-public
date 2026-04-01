@@ -63,6 +63,7 @@ export async function uploadAvatar(formData: FormData): Promise<ActionState> {
       .upload(filePath, buffer, {
         upsert: true,
         contentType: "image/webp",
+        cacheControl: "31536000",
       });
 
     if (uploadError) return { success: false, error: uploadError.message };

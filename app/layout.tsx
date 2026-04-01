@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "@/components/layout/theme-provider";
-import "./globals.css";
+import "@/app/globals.css";
 import { Toaster } from "sonner";
 import { Footer } from "@/components/layout/footer";
-import { Header } from "@/components/layout/header";
+import { Header } from "@/components/layout/header/header";
 import { getUser } from "@/lib/supabase/server";
 import { UrlToastHandler } from "@/components/auth/url-toast-handler";
 import { HideOnQuizEngine } from "@/components/layout/hide-on-quiz-engine";
@@ -75,7 +74,6 @@ export default async function RootLayout({
             <Footer />
           </HideOnQuizEngine>
         </ThemeProvider>
-        <Analytics />
         <Toaster
           position="bottom-right"
           richColors

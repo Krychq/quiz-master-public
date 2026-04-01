@@ -103,6 +103,10 @@ export function AvatarUploadTrigger({
         <UserAvatar
           src={avatarUrl}
           alt="User Avatar"
+          imageProps={{
+            height: 128,
+            width: 128,
+          }}
           className={`h-32 w-32 border-4 border-background shadow-xl ${busy ? "opacity-50" : ""}`}
         />
         {isOwnProfile && (
