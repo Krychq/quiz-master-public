@@ -1,22 +1,22 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { createClient } from "@/lib/supabase/client"
-import { Provider } from "@supabase/supabase-js"
-import { GoogleIcon } from "@/components/icons/google"
-import { DiscordIcon } from "@/components/icons/discord"
-import { GitHubIcon } from "@/components/icons/github"
+import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/client";
+import { Provider } from "@supabase/supabase-js";
+import { GoogleIcon } from "@/components/icons/google";
+import { DiscordIcon } from "@/components/icons/discord";
+import { GitHubIcon } from "@/components/icons/github";
 
 export function OAuthButtons() {
   const handleOAuthLogin = async (provider: Provider) => {
-    const supabase = createClient()
+    const supabase = createClient();
     await supabase.auth.signInWithOAuth({
       provider: provider,
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback`,
       },
-    })
-  }
+    });
+  };
 
   return (
     <div className="flex flex-col gap-3 w-full mt-2">
@@ -31,19 +31,31 @@ export function OAuthButtons() {
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <Button variant="outline" type="button" onClick={() => handleOAuthLogin('google')}>
+        <Button
+          variant="outline"
+          type="button"
+          onClick={() => handleOAuthLogin("google")}
+        >
           <GoogleIcon className="mr-2 h-4 w-4" />
           Google
         </Button>
-        <Button variant="outline" type="button" onClick={() => handleOAuthLogin('discord')}>
+        <Button
+          variant="outline"
+          type="button"
+          onClick={() => handleOAuthLogin("discord")}
+        >
           <DiscordIcon className="mr-2 h-4 w-4" />
           Discord
         </Button>
-        <Button variant="outline" type="button" onClick={() => handleOAuthLogin('github')}>
+        <Button
+          variant="outline"
+          type="button"
+          onClick={() => handleOAuthLogin("github")}
+        >
           <GitHubIcon className="mr-2 h-4 w-4" />
           GitHub
         </Button>
       </div>
     </div>
-  )
+  );
 }
