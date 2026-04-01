@@ -17,11 +17,11 @@
 
 ## 🛠️ Tech Stack
 
-- **Frontend Framework:** Next.js (App Router)
+- **Framework:** Next.js 16 (App Router)
+- **Library:** React 19
 - **Language:** TypeScript
-- **Database ORM:** Drizzle ORM
 - **Styling:** Tailwind CSS
-- **Package Manager:** pnpm
+- **Components:** Shadcn UI, Lucide React (Icons)
 
 ## 🚀 Getting Started
 
@@ -87,4 +87,4 @@ Follow these steps to get the full-stack environment running locally.
 
 ## 📝 License
 
-This project is licensed under the MIT License. Feel free to use it for your own educational purposes or portfolio!
+This project is licensed under the MIT License. Feel free to use it for your own educational purposes!
