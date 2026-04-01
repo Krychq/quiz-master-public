@@ -15,7 +15,7 @@ export async function GET(request: Request) {
 
   if (code) {
     const response = NextResponse.redirect(
-      `${process.env.NEXT_PUBLIC_SITE_URL}${next}`,
+      `${process.env.NEXT_PUBLIC_SITE_URL}/${next}`,
       { status: 307 },
     );
     const supabase = createServerClient(
