@@ -10,6 +10,7 @@ import { GitHubIcon } from "@/components/icons/github";
 export function OAuthButtons() {
   const handleOAuthLogin = async (provider: Provider) => {
     const supabase = createClient();
+
     await supabase.auth.signInWithOAuth({
       provider: provider,
       options: {

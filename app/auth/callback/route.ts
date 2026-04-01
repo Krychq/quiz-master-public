@@ -14,10 +14,13 @@ export async function GET(request: Request) {
   }
 
   if (code) {
-    const response = NextResponse.redirect(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/${next}`,
-      { status: 307 },
-    );
+    const baseUrl =
+      process.env.NEXT_PUBLIC_SITE_URL ||
+      "https://quiz-master-public.netlify.app";
+
+    const redirectUrl = new URL(next, baseUrl).toString();
+    const response = NextResponse.redirect(redirectUrl, { status: 303 });
+
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
