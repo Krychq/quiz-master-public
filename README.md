@@ -4,7 +4,7 @@
 
 **QuizMaster** is a modern, full-stack web application built to challenge your knowledge, create custom quizzes, and compete with friends. It leverages the Next.js App Router for seamless performance, Drizzle ORM for type-safe database interactions, and dynamic SEO capabilities to make sharing quizzes and profiles a breeze.
 
-🌐 **Live Demo:** [https://quiz-master.netlify.app/](https://quiz-master.netlify.app/)
+🌐 **Live Demo:** [https://quiz-master-public.vercel.app](https://quiz-master-public.vercel.app)
 
 ## ✨ Features
 
@@ -37,8 +37,8 @@ Follow these steps to get the full-stack environment running locally.
 1.  **Clone the repository:**
 
     ```bash
-    git clone [https://github.com/YourUsername/quiz-master.git](https://github.com/YourUsername/quiz-master.git)
-    cd quiz-master
+    git clone [https://github.com/Krychq/quiz-master-public.git](https://github.com/Krychq/quiz-master-public.git)
+    cd quiz-master-public
     ```
 
 2.  **Install dependencies:**
