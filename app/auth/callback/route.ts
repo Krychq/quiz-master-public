@@ -1,40 +1,33 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
-export async function GET(request: NextRequest) {
+export async function GET(request: Request) {
   console.log("🚀🚀🚀 [CALLBACK] Ktoś właśnie uderzył w /auth/callback!");
   console.log("🔗 URL requestu:", request.url);
 
-  const searchParams = request.nextUrl.searchParams;
+  const { searchParams } = new URL(request.url);
   const code = searchParams.get("code");
   const next = searchParams.get("next") ?? "/";
 
   console.log("🎫 Kod z URL:", code ? "JEST KOD" : "BRAK KODU");
 
-  // 1. Klonujemy URL, żeby zachować domenę produkcyjną
-  const redirectUrl = request.nextUrl.clone();
-
-  // 2. MORDUJEMY PARAMETRY! Dzięki temu Netlify nie ma czego doklejać.
-  redirectUrl.search = "";
-
   const errorCode = searchParams.get("error_code");
   if (errorCode) {
-    redirectUrl.pathname = "/";
-    redirectUrl.search = `?auth_error=${errorCode}`;
-    return NextResponse.redirect(redirectUrl);
+    return NextResponse.redirect(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/?auth_error=${errorCode}`,
+    );
   }
 
   if (!code) {
-    redirectUrl.pathname = "/";
-    redirectUrl.search = "?auth_error=code-missing";
-    return NextResponse.redirect(redirectUrl);
+    return NextResponse.redirect(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/?auth_error=code-missing`,
+    );
   }
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL!;
 
-  // 3. Ustawiamy czystą ścieżkę powrotną (np. "/")
-  redirectUrl.pathname = next;
-
-  // 4. Tworzymy przekierowanie 303 (See Other)
+  const redirectUrl = new URL(next, baseUrl).toString();
   const response = NextResponse.redirect(redirectUrl, { status: 303 });
+  console.log("LINE 30:", response);
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -42,8 +35,15 @@ export async function GET(request: NextRequest) {
     {
       cookies: {
         getAll() {
-          // NextRequest robi to za nas - koniec z mapowaniem stringów!
-          return request.cookies.getAll();
+          return (
+            request.headers
+              .get("cookie")
+              ?.split("; ")
+              .map((c) => {
+                const [name, ...rest] = c.split("=");
+                return { name, value: rest.join("=") };
+              }) ?? []
+          );
         },
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value, options }) =>
@@ -55,13 +55,13 @@ export async function GET(request: NextRequest) {
   );
 
   const { error } = await supabase.auth.exchangeCodeForSession(code);
+  console.log("LINE 58:", response);
 
   if (error) {
-    redirectUrl.pathname = "/";
-    redirectUrl.search = "?auth_error=auth-code-error";
-    return NextResponse.redirect(redirectUrl);
+    return NextResponse.redirect(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/?auth_error=auth-code-error`,
+    );
   }
 
-  // Zwracamy naszą sterylnie czystą odpowiedź z kodem 303
   return response;
 }
