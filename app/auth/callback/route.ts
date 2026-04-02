@@ -2,9 +2,14 @@ import { NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
 export async function GET(request: Request) {
+  console.log("🚀🚀🚀 [CALLBACK] Ktoś właśnie uderzył w /auth/callback!");
+  console.log("🔗 URL requestu:", request.url);
+
   const { searchParams } = new URL(request.url);
   const code = searchParams.get("code");
   const next = searchParams.get("next") ?? "/";
+
+  console.log("🎫 Kod z URL:", code ? "JEST KOD" : "BRAK KODU");
 
   const errorCode = searchParams.get("error_code");
   if (errorCode) {
