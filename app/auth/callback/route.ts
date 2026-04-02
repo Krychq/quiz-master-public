@@ -2,14 +2,9 @@ import { NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
 export async function GET(request: Request) {
-  console.log("🚀🚀🚀 [CALLBACK] Ktoś właśnie uderzył w /auth/callback!");
-  console.log("🔗 URL requestu:", request.url);
-
   const { searchParams } = new URL(request.url);
   const code = searchParams.get("code");
   const next = searchParams.get("next") ?? "/";
-
-  console.log("🎫 Kod z URL:", code ? "JEST KOD" : "BRAK KODU");
 
   const errorCode = searchParams.get("error_code");
   if (errorCode) {
@@ -27,7 +22,6 @@ export async function GET(request: Request) {
 
   const redirectUrl = new URL(next, baseUrl).toString();
   const response = NextResponse.redirect(redirectUrl, { status: 303 });
-  console.log("LINE 30:", response);
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -55,7 +49,6 @@ export async function GET(request: Request) {
   );
 
   const { error } = await supabase.auth.exchangeCodeForSession(code);
-  console.log("LINE 58:", response);
 
   if (error) {
     return NextResponse.redirect(
