@@ -37,7 +37,7 @@ Follow these steps to get the full-stack environment running locally.
 1.  **Clone the repository:**
 
     ```bash
-    git clone [https://github.com/Krychq/quiz-master-public.git](https://github.com/Krychq/quiz-master-public.git)
+    git clone https://github.com/Krychq/quiz-master-public.git
     cd quiz-master-public
     ```
 
@@ -51,8 +51,10 @@ Follow these steps to get the full-stack environment running locally.
     Rename the `.env.example` file to `.env.local` (or create a new one) and add your respective database connections and secret keys:
 
     ```env
-    NEXT_PUBLIC_SITE_URL=http://localhost:3000
-    # Add other required variables (e.g., Database URL, Auth Secrets) here
+    DATABASE_URL=
+    NEXT_PUBLIC_SUPABASE_URL=
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=
+    NEXT_PUBLIC_SITE_URL="http://localhost:3000"
     ```
 
 4.  **Database Setup:**
